@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace OXG.ServiceCenterReceipts
 {
+    
     public partial class Form1 : Form
     {
         
@@ -17,7 +18,7 @@ namespace OXG.ServiceCenterReceipts
         {
             InitializeComponent();
         }
-        
+        internal ComponentList componentList = new ComponentList();
         private void timerTick(object sender, EventArgs e)
         {
             if (checkBox2.Checked)
@@ -29,7 +30,7 @@ namespace OXG.ServiceCenterReceipts
                 this.Height -= 5;
             }
 
-            if (this.Height >= 322 || this.Height <= 215)
+            if (this.Height >= 412 || this.Height <= 215)
             {
                 timer1.Stop();  
             }
@@ -47,6 +48,7 @@ namespace OXG.ServiceCenterReceipts
                 var receipt = new MasterReceipt(Int32.Parse(textBox1.Text), textBox2.Text, Int32.Parse(textBox3.Text),checkBox1.Checked);
                 context.MasterReceipts.Add(receipt);
                 context.SaveChanges();
+                context.ComponentsLists.Add();
                 label6.Text = $"Записей в базе: {context.MasterReceipts.Count()}";
             }
         }
@@ -63,7 +65,7 @@ namespace OXG.ServiceCenterReceipts
 
         private void NowTimerTick(object sender, EventArgs e)
         {
-            label7.Text = $"{ DateTime.Now.ToShortTimeString()}";
+            label7.Text = $"{ DateTime.Now}";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -71,6 +73,22 @@ namespace OXG.ServiceCenterReceipts
             var f2 = new Form2();
             f2.Show();
             this.Hide();
+        }
+        
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+           
+            if (!String.IsNullOrWhiteSpace(textBox4.Text) && !String.IsNullOrWhiteSpace(textBox5.Text))
+            {
+                var component = new Component(textBox4.Text,Int32.Parse(textBox5.Text));
+                listView1.Items.Add(component.Name);
+                componentList.Components.Add(component);
+            }
+            else
+            {
+                MessageBox.Show("Ошибка заполнения");
+            }
         }
     }
 }

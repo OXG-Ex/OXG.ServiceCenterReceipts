@@ -51,6 +51,6 @@ namespace OXG.ServiceCenterReceipts
             MyMoney = AllMoney * 0.4;
         }
 
-        public virtual ICollection<ComponentsList> ComponentsLists { get; set; }
+        public virtual ComponentList ComponentsList { get; set; }
     }
 }

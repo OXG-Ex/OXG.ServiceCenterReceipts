@@ -9,9 +9,9 @@ namespace OXG.ServiceCenterReceipts
 {
     class ServiceCenterDbContext : DbContext
     {
-        public ServiceCenterDbContext() : base("DbConnectionString") { }
+        public ServiceCenterDbContext() : base("DbConnection") { }
 
         public DbSet<MasterReceipt> MasterReceipts { get; set; }
-        public DbSet<ComponentsList> ComponentsLists { get; set; }
+        public DbSet<ComponentList> ComponentsLists { get; set; }
     }
 }

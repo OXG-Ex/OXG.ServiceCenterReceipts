@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,10 +49,9 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.button2 = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label8 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // button1
@@ -197,6 +197,7 @@
             // 
             // timer2
             // 
+            this.timer2.Enabled = true;
             this.timer2.Interval = 1000;
             this.timer2.Tick += new System.EventHandler(this.NowTimerTick);
             // 
@@ -213,15 +214,17 @@
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnName,
-            this.columnPrice});
+            this.columnName});
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(194, 254);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(201, 107);
             this.listView1.TabIndex = 16;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
+            // 
+            // columnName
+            // 
+            this.columnName.Text = "Название";
             // 
             // label8
             // 
@@ -243,19 +246,11 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // columnName
-            // 
-            this.columnName.Text = "Название";
-            // 
-            // columnPrice
-            // 
-            this.columnPrice.Text = "Стоимость";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(402, 373);
+            this.ClientSize = new System.Drawing.Size(402, 180);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.listView1);
@@ -275,8 +270,13 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
+            this.HelpButton = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Главная форма";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Exit);
             this.Shown += new System.EventHandler(this.Form1Show);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -307,7 +307,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button3;
         internal System.Windows.Forms.ColumnHeader columnName;
-        private System.Windows.Forms.ColumnHeader columnPrice;
     }
 }
 

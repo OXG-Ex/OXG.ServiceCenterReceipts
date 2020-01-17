@@ -18,7 +18,8 @@ namespace OXG.ServiceCenterReceipts
         {
             InitializeComponent();
         }
-        internal ComponentList componentList = new ComponentList();
+        
+
         private void timerTick(object sender, EventArgs e)
         {
             if (checkBox2.Checked)
@@ -48,7 +49,14 @@ namespace OXG.ServiceCenterReceipts
                 var receipt = new MasterReceipt(Int32.Parse(textBox1.Text), textBox2.Text, Int32.Parse(textBox3.Text),checkBox1.Checked);
                 context.MasterReceipts.Add(receipt);
                 context.SaveChanges();
-                context.ComponentsLists.Add();
+
+                foreach (var item in componentList)
+                {
+                    item.MasterReceiptID = receipt.ID;
+                }
+
+                context.Components.AddRange(componentList);
+                context.SaveChanges();
                 label6.Text = $"Записей в базе: {context.MasterReceipts.Count()}";
             }
         }
@@ -60,12 +68,14 @@ namespace OXG.ServiceCenterReceipts
             using (var context = new ServiceCenterDbContext())
             {
                 label6.Text = $"Записей в базе: {context.MasterReceipts.Count()}";
+                
             }
         }
 
         private void NowTimerTick(object sender, EventArgs e)
         {
-            label7.Text = $"{ DateTime.Now}";
+           
+            label7.Text = DateTime.Now.ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -74,21 +84,28 @@ namespace OXG.ServiceCenterReceipts
             f2.Show();
             this.Hide();
         }
-        
 
+        internal List<Component> componentList = new List<Component>();
         private void button3_Click(object sender, EventArgs e)
         {
            
             if (!String.IsNullOrWhiteSpace(textBox4.Text) && !String.IsNullOrWhiteSpace(textBox5.Text))
             {
                 var component = new Component(textBox4.Text,Int32.Parse(textBox5.Text));
+                
+                componentList.Add(component);
                 listView1.Items.Add(component.Name);
-                componentList.Components.Add(component);
+                
             }
             else
             {
                 MessageBox.Show("Ошибка заполнения");
             }
+        }
+
+        private void Exit(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

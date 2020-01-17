@@ -21,7 +21,7 @@ namespace OXG.ServiceCenterReceipts
         }
         public ComponentList()
         {
-            
+            Components = new List<Component>();
         }
 
         public virtual MasterReceipt MasterReceipt { get; set; }

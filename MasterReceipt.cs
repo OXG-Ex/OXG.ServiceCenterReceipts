@@ -22,13 +22,13 @@ namespace OXG.ServiceCenterReceipts
             Number = number;
             Equipment = equipment;
             Discount = discount;
-            if (Discount)
+            if (!Discount)
             {
                 AllMoney = money;
             }
             else
             {
-                AllMoney = money * 0.9;
+                AllMoney = (money * 0.9);
             }
             MyMoney = AllMoney * 0.4;
         }
@@ -40,17 +40,17 @@ namespace OXG.ServiceCenterReceipts
             Date = DateTime.Now;
             Number = number;
             Equipment = equipment;
-            if (Discount)
+            if (!Discount)
             {
                 AllMoney = money;
             }
             else
             {
-                AllMoney = money * 0.9;
+                AllMoney =( money * 0.9);
             }
             MyMoney = AllMoney * 0.4;
         }
 
-        public virtual ComponentList ComponentsList { get; set; }
+        public virtual ICollection <Component> Components { get; set; }
     }
 }

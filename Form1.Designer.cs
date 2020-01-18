@@ -181,9 +181,10 @@
             this.label6.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label6.Location = new System.Drawing.Point(12, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(134, 16);
+            this.label6.Size = new System.Drawing.Size(197, 16);
             this.label6.TabIndex = 13;
-            this.label6.Text = "Записей в базе:";
+            this.label6.Text = "Записей в базе: Loading";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 

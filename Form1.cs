@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -63,13 +64,19 @@ namespace OXG.ServiceCenterReceipts
         
 
 
-        private void Form1Show(object sender, EventArgs e)
+        private async void Form1Show(object sender, EventArgs e)
         {
-            using (var context = new ServiceCenterDbContext())
+            string LoadingData()
             {
-                label6.Text = $"Записей в базе: {context.MasterReceipts.Count()}";
-                
+                using (var context = new ServiceCenterDbContext())
+                {
+                    var s = context.MasterReceipts.Count();
+                    return ($"Записей в базе: {s}");
+                }
             }
+
+            string result = await Task.Factory.StartNew<string>(() => LoadingData());
+            label6.Text = result;
         }
 
         private void NowTimerTick(object sender, EventArgs e)
@@ -106,6 +113,11 @@ namespace OXG.ServiceCenterReceipts
         private void Exit(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -52,9 +52,9 @@
             this.label2.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(139, 29);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 25);
+            this.label2.Size = new System.Drawing.Size(80, 25);
             this.label2.TabIndex = 1;
-            this.label2.Text = "3000 руб.";
+            this.label2.Text = "Loading";
             // 
             // textBox1
             // 

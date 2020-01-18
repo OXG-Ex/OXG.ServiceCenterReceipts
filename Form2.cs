@@ -22,12 +22,19 @@ namespace OXG.ServiceCenterReceipts
             textBox1.Text += " руб.";
         }
 
-        private void Form2_Shown(object sender, EventArgs e)
+        private async void Form2_Shown(object sender, EventArgs e)
         {
-            using (var context = new ServiceCenterDbContext())
+            string LoadData()
             {
-                label2.Text = $"{context.MasterReceipts.Sum(r => r.MyMoney)} руб.";
+                using (var context = new ServiceCenterDbContext())
+                {
+                    var s = "";
+                    s = $"{context.MasterReceipts.Sum(r => r.MyMoney)} руб.";
+                    return s;
+                }
             }
+            string result = await Task.Factory.StartNew<string>(() => LoadData());
+            label2.Text = result;
         }
 
         private void button1_Click(object sender, EventArgs e)

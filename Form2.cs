@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,10 +12,6 @@ namespace OXG.ServiceCenterReceipts
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            textBox1.Text += " руб.";
-        }
 
         private async void Form2_Shown(object sender, EventArgs e)
         {
@@ -29,7 +20,8 @@ namespace OXG.ServiceCenterReceipts
                 using (var context = new ServiceCenterDbContext())
                 {
                     var s = "";
-                    s = $"{context.MasterReceipts.Sum(r => r.MyMoney)} руб.";
+                    var masterSum = context.MasterReceipts.Where(m => m.MasterName == Master.Name);
+                    s = $"{masterSum.Sum(r => r.MyMoney)} руб.";
                     return s;
                 }
             }
@@ -43,13 +35,18 @@ namespace OXG.ServiceCenterReceipts
             {
                 if (!String.IsNullOrWhiteSpace(textBox1.Text))
                 {
-                    var debitReceipt = new MasterReceipt(888, "Списание", 0 - Int32.Parse(textBox1.Text));
+                    var debitReceipt = new MasterReceipt(888, "Списание", 0);
+                    debitReceipt.MyMoney = 0 - Int32.Parse(textBox1.Text);
                     context.MasterReceipts.Add(debitReceipt);
-                    label2.Text = $"{context.MasterReceipts.Sum(r => r.MyMoney)} руб.";
+                    context.SaveChanges();
+                    textBox1.Text = "";
+                    var masterSum = context.MasterReceipts.Where(m => m.MasterName == Master.Name);
+                    label2.Text = $"{masterSum.Sum(r => r.MyMoney )} руб.";
+                    this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Ошибка: введите сумму для списания:");
+                    MessageBox.Show("Ошибка: введите сумму для списания");
                 }
             }
         }
@@ -58,7 +55,6 @@ namespace OXG.ServiceCenterReceipts
         {
             var f1 = new Form1();
             f1.Show();
-            this.Hide();
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OXG.ServiceCenterReceipts
 {
@@ -15,6 +12,8 @@ namespace OXG.ServiceCenterReceipts
         public double AllMoney { get; set; }
         public double MyMoney { get; set; }
         public bool Discount { get; set; } = false;
+        public string MasterName { get; set; }
+        public double MasterPercent { get; set; }
 
         public MasterReceipt(int number, string equipment, int money, bool discount)
         {
@@ -22,6 +21,8 @@ namespace OXG.ServiceCenterReceipts
             Number = number;
             Equipment = equipment;
             Discount = discount;
+            MasterName = Master.Name;
+            MasterPercent = Master.Percent;
             if (!Discount)
             {
                 AllMoney = money;
@@ -30,7 +31,7 @@ namespace OXG.ServiceCenterReceipts
             {
                 AllMoney = (money * 0.9);
             }
-            MyMoney = AllMoney * 0.4;
+            MyMoney = AllMoney * MasterPercent;
         }
 
         public MasterReceipt() { }
@@ -46,11 +47,13 @@ namespace OXG.ServiceCenterReceipts
             }
             else
             {
-                AllMoney =( money * 0.9);
+                AllMoney = (money * 0.9);
             }
             MyMoney = AllMoney * 0.4;
         }
 
-        public virtual ICollection <Component> Components { get; set; }
+        public virtual ICollection<Component> Components { get; set; }
+
+       
     }
 }

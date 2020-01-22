@@ -32,7 +32,7 @@ namespace OXG.ServiceCenterReceipts
                 this.Height -= 5;
             }
 
-            if (this.Height >= 412 || this.Height <= 215)
+            if (this.Height >= 422 || this.Height <= 235)
             {
                 timer1.Stop();  
             }
@@ -58,7 +58,8 @@ namespace OXG.ServiceCenterReceipts
 
                 context.Components.AddRange(componentList);
                 context.SaveChanges();
-                label6.Text = $"Записей в базе: {context.MasterReceipts.Count()}";
+                // label6.Text = $"Записей в базе: {context.MasterReceipts.Count()}";
+                toolStripStatusLabel2.Text = $"Записей: {context.MasterReceipts.Count()}"; ;
             }
         }
         
@@ -68,15 +69,18 @@ namespace OXG.ServiceCenterReceipts
         {
             string LoadingData()
             {
+                
                 using (var context = new ServiceCenterDbContext())
                 {
                     var s = context.MasterReceipts.Count();
-                    return ($"Записей в базе: {s}");
+                    return ($"Записей: {s}");
                 }
             }
 
             string result = await Task.Factory.StartNew<string>(() => LoadingData());
-            label6.Text = result;
+           // label6.Text = result;
+            toolStripStatusLabel2.Text = result;
+            toolStripStatusLabel1.Text = $"{Master.Name}";
         }
 
         private void NowTimerTick(object sender, EventArgs e)
@@ -116,6 +120,11 @@ namespace OXG.ServiceCenterReceipts
         }
 
         private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripStatusLabel3_Click(object sender, EventArgs e)
         {
 
         }

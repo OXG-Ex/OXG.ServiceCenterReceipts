@@ -12,7 +12,7 @@ namespace OXG.ServiceCenterReceipts
         public string Name { get; set; }
         public int Price { get; set; }
         public Component() { }
-        
+
         public int MasterReceiptID { get; set; }
 
         public Component(string name, int price)
@@ -21,6 +21,6 @@ namespace OXG.ServiceCenterReceipts
             Price = price;
         }
 
-        
+
     }
 }

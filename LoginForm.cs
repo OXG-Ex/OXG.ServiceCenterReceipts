@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -27,16 +22,16 @@ namespace OXG.ServiceCenterReceipts
             this.Cursor = Cursors.WaitCursor;
             List<string> LoadingMasters()
             {
-                using(var context = new ServiceCenterDbContext())
+                using (var context = new ServiceCenterDbContext())
                 {
                     var s = new List<string>();
                     foreach (var item in context.MasterPasswords)
                     {
                         s.Add(item.Name);
                     }
-                   return s;
+                    return s;
                 }
-                
+
             }
             List<string> result = await Task.Factory.StartNew<List<string>>(() => LoadingMasters());
 
@@ -48,6 +43,7 @@ namespace OXG.ServiceCenterReceipts
 
             MasterComboBox.Items.AddRange(masters);
             this.Cursor = Cursors.Default;
+            MasterComboBox.Enabled = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -65,8 +61,36 @@ namespace OXG.ServiceCenterReceipts
                         this.Hide();
                         return;
                     }
-                    MessageBox.Show("Ошибка: Неверный пароль");
                 }
+                MessageBox.Show("Ошибка: Неверный пароль");
+            }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var f = new AddMasterForm();
+            f.Show();
+            this.Hide();
+        }
+
+        private void MasterComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (MasterComboBox.SelectedIndex>-1)
+            {
+                PasswordTextBox.Enabled = true;
+                label2.Visible = true;
+            }
+        }
+
+        private void PasswordTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (PasswordTextBox.TextLength>3)
+            {
+                button1.Enabled = true;
+            }
+            else
+            {
+                button1.Enabled = false;
             }
         }
     }

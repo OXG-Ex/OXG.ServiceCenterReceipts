@@ -38,6 +38,8 @@ namespace OXG.ServiceCenterReceipts
 
         public MasterReceipt(int number, string equipment, int money)
         {
+            MasterName = Master.Name;
+            MasterPercent = Master.Percent;
             Date = DateTime.Now;
             Number = number;
             Equipment = equipment;
@@ -54,6 +56,6 @@ namespace OXG.ServiceCenterReceipts
 
         public virtual ICollection<Component> Components { get; set; }
 
-       
+
     }
 }

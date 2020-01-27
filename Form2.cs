@@ -41,7 +41,7 @@ namespace OXG.ServiceCenterReceipts
                     context.SaveChanges();
                     textBox1.Text = "";
                     var masterSum = context.MasterReceipts.Where(m => m.MasterName == Master.Name);
-                    label2.Text = $"{masterSum.Sum(r => r.MyMoney )} руб.";
+                    label2.Text = $"{masterSum.Sum(r => r.MyMoney)} руб.";
                     this.Close();
                 }
                 else

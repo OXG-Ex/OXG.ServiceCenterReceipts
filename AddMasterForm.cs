@@ -18,7 +18,7 @@ namespace OXG.ServiceCenterReceipts
                 //TODO: Добавить проверку ввода и редактирование мастеров
                 using (var context = new ServiceCenterDbContext())
                 {
-                    var master = new MasterPassword(NameTextBox.Text,PasswordTextBox.Text,double.Parse(PercentTextBox.Text));
+                    var master = new MasterPassword(NameTextBox.Text, PasswordTextBox.Text, double.Parse(PercentTextBox.Text));
                     context.MasterPasswords.Add(master);
                     try
                     {
@@ -34,6 +34,12 @@ namespace OXG.ServiceCenterReceipts
                     MessageBox.Show("Мастер добавлен");
                 }
             }
+        }
+
+        private void AddMasterForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var f = new LoginForm();
+            f.Show();
         }
     }
 }

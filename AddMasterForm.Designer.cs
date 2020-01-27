@@ -80,7 +80,9 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddMasterForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddMasterForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddMasterForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

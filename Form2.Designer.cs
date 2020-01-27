@@ -97,6 +97,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Зарплата";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.debitFormClosing);
             this.Shown += new System.EventHandler(this.Form2_Shown);

@@ -14,7 +14,7 @@ namespace OXG.ServiceCenterReceipts
         public DbSet<MasterPassword> MasterPasswords { get; set; }
 
         public DbSet<MasterReceipt> MasterReceipts { get; set; }
-        
+
         public DbSet<Component> Components { get; set; }
     }
 }

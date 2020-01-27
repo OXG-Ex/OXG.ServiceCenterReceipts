@@ -21,6 +21,6 @@ namespace OXG.ServiceCenterReceipts
             Password = password;
             Percent = percent * 0.01;
         }
-        
+
     }
 }

@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OXG.ServiceCenterReceipts
 {
-    
+
     public partial class Form1 : Form
     {
-        
+
         public Form1()
         {
             InitializeComponent();
         }
-        
+
 
         private void timerTick(object sender, EventArgs e)
         {
@@ -34,7 +29,7 @@ namespace OXG.ServiceCenterReceipts
 
             if (this.Height >= 422 || this.Height <= 235)
             {
-                timer1.Stop();  
+                timer1.Stop();
             }
         }
 
@@ -45,47 +40,61 @@ namespace OXG.ServiceCenterReceipts
 
         private void AddClick(object sender, EventArgs e)
         {
-            using(var context = new ServiceCenterDbContext())
+            using (var context = new ServiceCenterDbContext())
             {
-                var receipt = new MasterReceipt(Int32.Parse(textBox1.Text), textBox2.Text, Int32.Parse(textBox3.Text),checkBox1.Checked);
-                context.MasterReceipts.Add(receipt);
-                context.SaveChanges();
-
-                foreach (var item in componentList)
+                try
                 {
-                    item.MasterReceiptID = receipt.ID;
-                }
+                    var receipt = new MasterReceipt(Int32.Parse(textBox1.Text), textBox2.Text, Int32.Parse(textBox3.Text), checkBox1.Checked);
+                    context.MasterReceipts.Add(receipt);
+                    context.SaveChanges();
 
-                context.Components.AddRange(componentList);
-                context.SaveChanges();
-                // label6.Text = $"Записей в базе: {context.MasterReceipts.Count()}";
-                toolStripStatusLabel2.Text = $"Записей: {context.MasterReceipts.Count()}"; ;
+                    foreach (var item in componentList)
+                    {
+                        item.MasterReceiptID = receipt.ID;
+                    }
+
+                    context.Components.AddRange(componentList);
+                    context.SaveChanges();
+                    
+                    var masterSum = context.MasterReceipts.Where(m => m.MasterName == Master.Name);
+                    var k = $"{masterSum.Sum(r => r.MyMoney)}";
+                    var s = masterSum.Count();
+
+                    toolStripStatusLabel2.Text = $"Записей: {s}  |  {k} руб.";
+                }
+                catch
+                {
+
+                    MessageBox.Show("Ошибка: заполните все поля");
+                }
             }
         }
-        
+
 
 
         private async void Form1Show(object sender, EventArgs e)
         {
             string LoadingData()
             {
-                
+
                 using (var context = new ServiceCenterDbContext())
                 {
-                    var s = context.MasterReceipts.Count();
-                    return ($"Записей: {s}");
+                    var masterSum = context.MasterReceipts.Where(m => m.MasterName == Master.Name);
+                    var s = masterSum.Count();
+                    var k = $"{masterSum.Sum(r => r.MyMoney)}";
+                    return ($"Записей: {s}  |  {k} руб.");
                 }
             }
 
             string result = await Task.Factory.StartNew<string>(() => LoadingData());
-           // label6.Text = result;
+           
             toolStripStatusLabel2.Text = result;
             toolStripStatusLabel1.Text = $"{Master.Name}";
         }
 
         private void NowTimerTick(object sender, EventArgs e)
         {
-           
+
             label7.Text = DateTime.Now.ToString();
         }
 
@@ -99,14 +108,14 @@ namespace OXG.ServiceCenterReceipts
         internal List<Component> componentList = new List<Component>();
         private void button3_Click(object sender, EventArgs e)
         {
-           
+
             if (!String.IsNullOrWhiteSpace(textBox4.Text) && !String.IsNullOrWhiteSpace(textBox5.Text))
             {
-                var component = new Component(textBox4.Text,Int32.Parse(textBox5.Text));
-                
+                var component = new Component(textBox4.Text, Int32.Parse(textBox5.Text));
+
                 componentList.Add(component);
                 listView1.Items.Add(component.Name);
-                
+
             }
             else
             {
@@ -125,6 +134,11 @@ namespace OXG.ServiceCenterReceipts
         }
 
         private void toolStripStatusLabel3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripStatusLabel4_Click(object sender, EventArgs e)
         {
 
         }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace OXG.ServiceCenterReceipts
 {
     class ComponentList
-    {  
+    {
         [Key]
-        [ForeignKey ("MasterReceipt")]
+        [ForeignKey("MasterReceipt")]
         public int ID { get; set; }
         public List<Component> Components { get; set; }
         public int MasterReceiptID { get; set; }

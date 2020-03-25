@@ -325,6 +325,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Главная форма";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Exit);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1Show);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

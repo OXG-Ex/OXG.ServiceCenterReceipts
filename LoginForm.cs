@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -92,6 +93,11 @@ namespace OXG.ServiceCenterReceipts
             {
                 button1.Enabled = false;
             }
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var s = Interaction.InputBox("Введите строку подключения (для её получения обратитесь к системному администратору)","Подключение к серверу");
         }
     }
 }

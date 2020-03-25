@@ -57,10 +57,17 @@ namespace OXG.ServiceCenterReceipts
                     context.SaveChanges();
                     
                     var masterSum = context.MasterReceipts.Where(m => m.MasterName == Master.Name);
-                    var k = $"{masterSum.Sum(r => r.MyMoney)}";
-                    var s = masterSum.Count();
+                    if (masterSum == null)
+                    {
+                        toolStripStatusLabel2.Text = $"Записей: {0} | {0} руб.";
+                    }
+                    else
+                    {
+                        var k = $"{masterSum.Sum(r => r.MyMoney)}";
+                        var s = masterSum.Count();
 
-                    toolStripStatusLabel2.Text = $"Записей: {s}  |  {k} руб.";
+                        toolStripStatusLabel2.Text = $"Записей: {s} | {k} руб.";
+                    }
                 }
                 catch
                 {
@@ -79,9 +86,21 @@ namespace OXG.ServiceCenterReceipts
 
                 using (var context = new ServiceCenterDbContext())
                 {
+                    var k = "";
+                    var s = 0;
                     var masterSum = context.MasterReceipts.Where(m => m.MasterName == Master.Name);
-                    var s = masterSum.Count();
-                    var k = $"{masterSum.Sum(r => r.MyMoney)}";
+                    if (masterSum.Count() == 0)
+                    {
+                        k = "";
+                        s = 0;
+                    }
+                    else
+                    {
+                       k = $"{masterSum.Sum(r => r.MyMoney)}";
+                       s = masterSum.Count();
+
+                        
+                    }
                     return ($"Записей: {s}  |  {k} руб.");
                 }
             }
@@ -139,6 +158,11 @@ namespace OXG.ServiceCenterReceipts
         }
 
         private void toolStripStatusLabel4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
